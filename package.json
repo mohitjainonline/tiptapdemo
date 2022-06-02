@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --watch --mode development",
     "build": "webpack -p",
-    "start": "./node_modules/.bin/babel server.js && nodemon server.js"
+    "start": "./node_modules/.bin/babel server.js && node server.js"
   },
   "repository": {
     "type": "git",

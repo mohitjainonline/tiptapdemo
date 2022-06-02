@@ -6,7 +6,7 @@ var path = require('path');
 var webpack = require('webpack');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-const con = mongoose.createConnection('mongodb://localhost/messagedb');
+const con = mongoose.createConnection('mongodb+srv://mohitjain:u6p57CWpd2IC6Jr3@cluster0.upaa3.mongodb.net/test');
 
 const UserSocket = require('./src/socket/UserSocket.js');
 const userSocket = new UserSocket(con);
