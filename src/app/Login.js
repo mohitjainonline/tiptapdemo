@@ -87,7 +87,7 @@ class Login extends React.Component {
         open 
         onRequestClose={this.toggleLogin}
         fullScreen={this.props.fullScreen}>
-        <DialogTitle>登入</DialogTitle>
+        <DialogTitle>login</DialogTitle>
         <DialogContent>
           <DialogContentText>
           Please enter your nickname and password.

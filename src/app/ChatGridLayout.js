@@ -35,7 +35,7 @@ class ChatGridLayout extends React.Component{
       window.alert('Invalid login, please login again！');
       window.location = '/login';
     } else {
-      // window.alert(retrievedObject + '\n登入成功！');
+      // window.alert(retrievedObject + '\nsign in suceesfully！');
       // console.log(retrievedObject);
       retrievedObject = JSON.parse(retrievedObject);
       var myicon = '';
