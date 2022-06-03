@@ -28,7 +28,7 @@ class ButtonAppBar extends React.Component {
   logout = e => {
     var retrievedObject = sessionStorage.clear();
     if(retrievedObject == null) {
-      window.alert('正在登出...');
+      window.alert('logging out...');
       window.location = '/login';
     }
   }
@@ -44,7 +44,7 @@ class ButtonAppBar extends React.Component {
             <Typography variant="title" color="inherit" className={classes.flex}>
               {this.props.username}
             </Typography>
-            <Button color="inherit" onClick={e => this.logout(e)}>登出</Button>
+            <Button color="inherit" onClick={e => this.logout(e)}>Sign out</Button>
           </Toolbar>
         </AppBar>
       </div>

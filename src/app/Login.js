@@ -22,7 +22,7 @@ class Login extends React.Component {
     console.log("componentWillMount()");
     var retrievedObject = sessionStorage.getItem('userInfo');
     if(retrievedObject != null) {
-      window.alert(retrievedObject + '\n您已經登入，重新導向至聊天室...');
+      window.alert(retrievedObject + '\nYou are logged in, redirect to chat...');
       window.location = '/chatroom';
     }
   };
@@ -51,7 +51,7 @@ class Login extends React.Component {
         // var retrievedObject = sessionStorage.getItem('userInfo');
         // console.log('retrievedObject: ', JSON.parse(retrievedObject));
 
-        window.alert(userInfo['username'] + ': 登入成功！');
+        window.alert(userInfo['username'] + ': sign in suceesfully！');
         window.location = '/chatroom';
       } else { // _message is ERROR message, error occurs!
         console.log(res.data);
@@ -90,14 +90,14 @@ class Login extends React.Component {
         <DialogTitle>登入</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            請輸入您的暱稱與密碼。
+          Please enter your nickname and password.
           </DialogContentText>
           <TextField
             autoFocus
             error={this.state.error}
             margin="dense"
             id="username"
-            label="暱稱"
+            label="Nick name"
             type="username"
             value={this.state.field_user}
             onChange={this.handleChange('field_user')}
@@ -108,7 +108,7 @@ class Login extends React.Component {
             error={this.state.error}
             margin="dense"
             id="password"
-            label="密碼"
+            label="password"
             type="password"
             value={this.state.field_pass}
             onChange={this.handleChange('field_pass')}
@@ -116,11 +116,11 @@ class Login extends React.Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.signUpPage} color="secondary">
-            註冊
+          <Button onClick={this.signUpPage} color="secondary">            
+            register
           </Button>
           <Button onClick={this.toggleLogin} color="primary">
-            確認
+            confirmation
           </Button>
         </DialogActions>
       </Dialog>

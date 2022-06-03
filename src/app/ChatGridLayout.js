@@ -20,9 +20,9 @@ class ChatGridLayout extends React.Component{
     this.state = ({
       username: "",
       icon: "",
-      friendname: "聊天室機器人",
+      friendname: "chat bot",
       friendicon: "./assets/bot.png",
-      subheader: "請選擇您要聊天的對象～",
+      subheader: "Please select who you want to chat with～",
       messageList: [],
       friendList: [],
       pickFriendBoolean: false
@@ -32,7 +32,7 @@ class ChatGridLayout extends React.Component{
   componentDidMount(){
     var retrievedObject = sessionStorage.getItem('userInfo');
     if(retrievedObject == null) {
-      window.alert('登入無效，請重新登入！');
+      window.alert('Invalid login, please login again！');
       window.location = '/login';
     } else {
       // window.alert(retrievedObject + '\n登入成功！');
@@ -88,7 +88,7 @@ class ChatGridLayout extends React.Component{
         });
         break;
       } else if(tmp[i].friendname === item.toName) {
-        tmp[i].lastMsg = '我: ' + item.msg + ' (' + item.time + ')';
+        tmp[i].lastMsg = 'I: ' + item.msg + ' (' + item.time + ')';
         // tmp[i].notifNum += 1;
         this.setState({friendList: tmp}, () => {
           // console.log(this.state.friendList);
@@ -136,7 +136,7 @@ class ChatGridLayout extends React.Component{
       friendicon: icon,
       messageList: [],
       pickFriendBoolean: true,
-      subheader: "在聊天室上線中"
+      subheader: "online in chat room"
     }, () => {
       this.clearNotifCallback(name);
 

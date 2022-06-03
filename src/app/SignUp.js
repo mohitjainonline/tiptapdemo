@@ -22,7 +22,7 @@ class SignUp extends React.Component {
     console.log("componentWillMount()");
     var retrievedObject = sessionStorage.getItem('userInfo');
     if(retrievedObject != null) {
-      window.alert(retrievedObject + '\n您已經登入，重新導向至聊天室...');
+      window.alert(retrievedObject + '\nYou are logged in, redirect to chat...');
       window.location = '/chatroom';
     }
   };
@@ -44,7 +44,7 @@ class SignUp extends React.Component {
     })
     .then(function (res) {
       if(res.data._message == null) { // no error
-        window.alert('註冊成功！');
+        window.alert('registration success！');
         _self.loginPage();
       } else { // _message is ERROR message, error occurs!
         console.log(res.data._message);
@@ -78,17 +78,17 @@ class SignUp extends React.Component {
         open 
         onRequestClose={this.toggleLogin}
         fullScreen={this.props.fullScreen}>
-        <DialogTitle>註冊</DialogTitle>
+        <DialogTitle>register</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            請輸入您的暱稱與密碼。
+          <DialogContentText>           
+            Please enter your nickname and password.
           </DialogContentText>
           <TextField
             autoFocus
             error={this.state.error}
             margin="dense"
             id="username"
-            label="暱稱"
+            label="Nick name"
             type="username"
             value={this.state.field_user}
             onChange={this.handleChange('field_user')}
@@ -99,7 +99,7 @@ class SignUp extends React.Component {
             error={this.state.error}
             margin="dense"
             id="password"
-            label="密碼"
+            label="password"
             type="password"
             value={this.state.field_pass}
             onChange={this.handleChange('field_pass')}
@@ -108,10 +108,10 @@ class SignUp extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button onClick={this.loginPage} color="secondary">
-            退回
+          return
           </Button>
           <Button onClick={this.toggleSignUp} color="primary">
-            確認
+          confirmation
           </Button>
         </DialogActions>
       </Dialog>

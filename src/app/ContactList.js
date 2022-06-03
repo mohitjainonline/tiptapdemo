@@ -63,8 +63,8 @@ class ContactList extends React.Component {
     ));
     return (
       <div>
-        <Typography variant="title" className={classes.title} style={{margin: 10}}>
-              朋友名單
+        <Typography variant="title" className={classes.title} style={{margin: 10}}>              
+          friends list
         </Typography>
         <List className={classes.root}>
           {listItems}
