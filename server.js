@@ -1,19 +1,22 @@
 var express = require('express');
 const app = express();
+var cors = require('cors');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 var webpack = require('webpack');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-const con = mongoose.createConnection('mongodb+srv://mohitjain:u6p57CWpd2IC6Jr3@cluster0.upaa3.mongodb.net/test');
+const con = mongoose.connect('mongodb+srv://mohitjain:u6p57CWpd2IC6Jr3@cluster0.upaa3.mongodb.net/test');
 
 const UserSocket = require('./src/socket/UserSocket.js');
 const userSocket = new UserSocket(con);
 const MsgSocket = require('./src/socket/MessageSocket.js');
 const msgSocket = new MsgSocket(con);
 
-const port = 3000;
+const port = 8010;
+
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -69,11 +72,38 @@ app.get('/user/allusers', function(req, res){
     const me = req.query.username;
     userSocket.loadFriendList(me, res);
 });
+app.get('/question/all', function(req, res){
+    const me = req.query.username;
+    userSocket.loadQuestionsList(me, res);
+});
 app.get('/msg/both', function(req, res) {
     const me = req.query.username;
     const f = req.query.friendname;
     msgSocket.loadBothMessages(me, f, res);
 })
+
+app.post('/question/editMode', function (req, res) {
+    console.log("editMode",req.body)
+    var newQuestion = {
+        qid: req.body.qid,
+        editMode: req.body.editMode,
+        updatedBy: req.body.username
+    };
+
+    userSocket.editModeQuestion(newQuestion, res);
+});
+
+app.post('/question/update', function (req, res) {
+    console.log("editMode",req.body)
+    var newQuestion = {
+        qid: req.body.qid,
+        content: req.body.content,
+        editMode: req.body.editMode,
+        updatedBy: req.body.username
+    };
+
+    userSocket.updateQuestion(newQuestion, res);
+});
 
 name_id_dict = {};
 io.on('connection', (socket) => {
@@ -81,6 +111,15 @@ io.on('connection', (socket) => {
         console.log( "connect: " + socket.id + ', ' + username);
         name_id_dict[username] = socket.id;
     })
+
+    socket.on('question', (data, cb) => {
+        data = JSON.parse(data);
+
+        name_id_dict.forEach(element => {
+            io.to(element).emit('question', data);
+        });
+     
+    });
     socket.on('message', (myMsg, cb) => {
         myMsg = JSON.parse(myMsg);
 

@@ -1,11 +1,14 @@
 const UserSchema = require('../models/User.js');
+const QuestionSchema = require('../models/Question.js');
 const mongoose = require('mongoose');
 
 var User = null;
+var Question = null;
 class UserSocket {
 
     constructor(con) {
-        User = con.model('User', UserSchema);
+        User = mongoose.model('User', UserSchema);
+        Question = mongoose.model('Question', QuestionSchema);
     }
 
     storeUsers(data, res) {
@@ -72,8 +75,92 @@ class UserSocket {
             }
             res.send(arr);
         });
-    }
-
+    };
+    loadQuestionsList(me, res) {
+        Question.find({}, function(err, questions) {
+            var arr = [];
+            res.send(questions);
+        });
+    };
+    
+    storeQuestion(data, res) {
+        var newQuestion = new Question({
+            name: data.name,
+            description: data.description,
+            content: data.content,
+            editMode: data.editMode,
+            updateTime: data.updateTime,
+            updateBy: data.updateBy
+        });
+        newQuestion.save(function(err, data){
+            console.log(data);
+            if(err){ 
+                console.log(err); 
+                res.send(err);
+            }
+            else{
+                console.log(data);
+                res.send(data);
+            } 
+        });
+    };
+    storeQuestion(data, res) {
+        var newQuestion = new Question({
+            name: data.name,
+            description: data.description,
+            content: data.content,
+            editMode: data.editMode,
+            updateTime: data.updateTime,
+            updateBy: data.updateBy
+        });
+        newQuestion.save(function(err, data){
+            console.log(data);
+            if(err){ 
+                console.log(err); 
+                res.send(err);
+            }
+            else{
+                console.log(data);
+                res.send(data);
+            } 
+        });
+    };
+    editModeQuestion(data, res) {
+        var newQuestion = {
+            editMode: data.editMode,
+            updateTime: new Date(),
+            updatedBy: data.updatedBy
+        };
+        Question.findByIdAndUpdate(data.qid,newQuestion, function(err, data){
+            console.log(data);
+            if(err){ 
+                console.log(err); 
+                res.send(err);
+            }
+            else{
+                console.log(data);
+                res.send(data);
+            } 
+        });
+    };
+    updateQuestion(data, res) {
+        var newQuestion = {
+            content: data.content,
+            editMode: data.editMode,
+            updatedBy: data.updatedBy
+        };
+        Question.findByIdAndUpdate(data.qid,newQuestion, function(err, data){
+            console.log(data);
+            if(err){ 
+                console.log(err); 
+                res.send(err);
+            }
+            else{
+                console.log(data);
+                res.send(data);
+            } 
+        });
+    };
 }
 
 module.exports = UserSocket;

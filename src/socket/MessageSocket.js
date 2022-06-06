@@ -6,7 +6,7 @@ var Message = null;
 class MessageSocket {
 
     constructor(con) {
-        Message = con.model('Message', MessageSchema);
+        Message = mongoose.model('Message', MessageSchema);
     }
 
     storeMessages(data) {
