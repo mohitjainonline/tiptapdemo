@@ -131,7 +131,8 @@ class UserSocket {
             updateTime: new Date(),
             updatedBy: data.updatedBy
         };
-        Question.findByIdAndUpdate(data.qid,newQuestion, function(err, data){
+
+        Question.findByIdAndUpdate(data.qid , newQuestion, function(err, data){
             console.log(data);
             if(err){ 
                 console.log(err); 
@@ -147,7 +148,7 @@ class UserSocket {
         var newQuestion = {
             content: data.content,
             editMode: data.editMode,
-            updatedBy: data.updatedBy
+            updatedBy: null
         };
         Question.findByIdAndUpdate(data.qid,newQuestion, function(err, data){
             console.log(data);

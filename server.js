@@ -7,6 +7,8 @@ var path = require('path');
 var webpack = require('webpack');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+//mongoose.set('useFindAndModify', false);
+
 const con = mongoose.connect('mongodb+srv://mohitjain:u6p57CWpd2IC6Jr3@cluster0.upaa3.mongodb.net/test');
 
 const UserSocket = require('./src/socket/UserSocket.js');
@@ -82,24 +84,24 @@ app.get('/msg/both', function(req, res) {
     msgSocket.loadBothMessages(me, f, res);
 })
 
-app.post('/question/editMode', function (req, res) {
-    console.log("editMode",req.body)
+app.post('/question/editMode', function (req, res)  {
+    console.log("editMode",req.body.params)
     var newQuestion = {
-        qid: req.body.qid,
-        editMode: req.body.editMode,
-        updatedBy: req.body.username
+        qid: req.body.params.qid,
+        editMode: req.body.params.editMode,
+        updatedBy: req.body.params.username
     };
 
-    userSocket.editModeQuestion(newQuestion, res);
+  userSocket.editModeQuestion(newQuestion, res);
 });
 
 app.post('/question/update', function (req, res) {
-    console.log("editMode",req.body)
+    console.log("update",req.body.params)
     var newQuestion = {
-        qid: req.body.qid,
-        content: req.body.content,
-        editMode: req.body.editMode,
-        updatedBy: req.body.username
+        qid: req.body.params.qid,
+        content: req.body.params.content,
+        editMode: req.body.params.editMode,
+        updatedBy: req.body.params.username
     };
 
     userSocket.updateQuestion(newQuestion, res);
@@ -113,11 +115,16 @@ io.on('connection', (socket) => {
     })
 
     socket.on('question', (data, cb) => {
-        data = JSON.parse(data);
+       // data = JSON.parse(data);
+        //console.log(data);
+        console.log(name_id_dict);
 
-        name_id_dict.forEach(element => {
-            io.to(element).emit('question', data);
-        });
+        for (const property in name_id_dict) {
+            console.log(`${property}: ${name_id_dict[property]}`);
+            io.to(name_id_dict[property]).emit('question', 1);
+          }
+
+      
      
     });
     socket.on('message', (myMsg, cb) => {
