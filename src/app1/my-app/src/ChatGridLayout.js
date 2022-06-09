@@ -214,7 +214,10 @@ class ChatGridLayout extends React.Component{
       <Grid item xs={8} sm={3}>
         
       <ContactList username={this.state.username} friendList={this.state.friendList}
-        pickFriendCallback={this.pickFriendCallback}></ContactList>
+        pickFriendCallback={this.pickFriendCallback} activeQuestion={this.state.question}>
+          
+
+        </ContactList>
       </Grid>
       <Grid item xs={12} sm={9}>
         <Button onClick={this.saveContent}>Save</Button>

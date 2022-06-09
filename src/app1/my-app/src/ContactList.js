@@ -43,20 +43,21 @@ class ContactList extends React.Component {
   constructor(props) {
     super(props);
   }
+  
 
   pickFriendCallback = (e, item) => {
     if(!item.editMode || (item.editMode && item.updatedBy === this.props.username)){
       e.preventDefault();
-      this.props.pickFriendCallback(e, item);
+      this.props.pickFriendCallback(e, item);     
     }
   }
-
+  
   render() {
     //const { classes } = this.props;
-    var listItems = this.props.friendList.map(item => (
+       var listItems = this.props.friendList.map(item => (
       <ListItem button divider
-      key={item._id}
-      onClick={(e) => this.pickFriendCallback(e, item)}
+      key={item._id} style={this.props.activeQuestion._id == item._id? {backgroundColor:"#FF0000"}: {}}
+      onClick={(e) => this.pickFriendCallback(e, item)}      
       >
       <Avatar src={item.icon} />
       <ListItemText primary={item.name} secondary={item.updatedBy} />
